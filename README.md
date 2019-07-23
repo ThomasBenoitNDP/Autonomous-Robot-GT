@@ -7,6 +7,8 @@ Moreover, the robot could avoid obstacles, detect human, simultaneously map a ne
 We used the ROS (Robot Operating System) middelware, the TurtleBot 2 kit, Python and C++.
 
 
+
+
 References: 
 
 The course introduction: http://dream.georgiatech-metz.fr/sites/default/files/01-introduction.pdf
