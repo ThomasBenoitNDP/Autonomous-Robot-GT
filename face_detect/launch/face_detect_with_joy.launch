@@ -1,0 +1,12 @@
+<launch>
+
+  <node pkg="face_detect" type="rosfacedetect.py" name="face_detect" output="screen">
+      <remap from="/face_detect/image" to="camera/rgb/image_color"/>
+  </node>
+
+  <node pkg="face_detect" type="Marker.py" name="marker" output="screen">
+  </node>
+
+  <node pkg="joy" type="joy_node" name="joystick"/>
+
+</launch>

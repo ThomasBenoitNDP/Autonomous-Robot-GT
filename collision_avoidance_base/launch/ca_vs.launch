@@ -1,0 +1,43 @@
+<launch>
+
+    <!-- Collision Avoidance -->
+
+  <node pkg="collision_avoidance_base" type="collision_avoidance_base" name="coll_avoid" output="screen">
+      launch-prefix="xterm -e gdb --args"
+      <param name="radius" value="1.0" />
+
+      <remap from="~scans" to="/scanpc"/>
+      <!-- <remap from="~cmd_vel" to="/cmd_vel_mux/input/teleop"/> -->
+      <remap from="~output_vel" to="/teleop_velocity_smoother/raw_cmd_vel"/>
+  </node>
+
+  <!--  Velocity Smoother --> 
+    
+  <include file="$(find turtlebot_teleop)/launch/includes/velocity_smoother.launch.xml"/>
+  
+ <node pkg="turtlebot_teleop" type="turtlebot_teleop_joy" name="turtlebot_teleop_joystick">
+    <param name="scale_angular" value="1.5"/>
+    <param name="scale_linear" value="0.5"/>
+    <!-- <remap from="turtlebot_teleop_joystick/cmd_vel" to="teleop_velocity_smoother/raw_cmd_vel"/> -->
+    <remap from="turtlebot_teleop_joystick/cmd_vel" to="/coll_avoid/cmd_vel"/>
+  </node>
+
+  <!--  3d sensor -->
+
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch"/>
+    
+  <!--  Minimal launch -->
+
+  <include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
+     
+  <!--  Laserscan to pointcloud -->
+    
+   <node pkg="laserscan_to_pc2" type="laserscan_to_pc2" name="lstopc2" output="screen">
+      launch-prefix="xterm -e gdb --args"
+      <param name="base_frame" value="/base_link" />
+
+      <remap from="~laser" to="/scan"/>
+      <remap from="~scan" to="/scanpc"/>
+  </node>
+
+</launch>

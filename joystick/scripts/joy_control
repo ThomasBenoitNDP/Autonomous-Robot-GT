@@ -1,0 +1,51 @@
+#!/usr/bin/env python
+# Software License Agreement (BSD License)
+#
+# Simple publisher qnd subscriber node for joystick control of a robot 
+# on vrep
+# Hicham DERKAOUI for CS7630
+
+import rospy
+from geometry_msgs.msg import Twist
+from sensor_msgs.msg import Joy
+
+#publisher for the vrep robot
+pub = rospy.Publisher('teleturtle/cmd_vel', Twist, queue_size=10)
+
+#Initialisation of the node
+rospy.init_node('joy_control', anonymous=True)   
+
+#Twist message created to get velocity and angular rotation
+#and transmit it to the robot
+twist = Twist()    
+
+#Rate at which the loop will repeat
+rate = rospy.Rate(rospy.get_param('~hz', 10))
+
+#Callback of the subscriber
+def callback(msg):
+	#Print a log at each iteration
+	rospy.loginfo("Vrep robot is moving")
+	
+	#Change the twist we'll transmit to the robot according to the 
+	#joystick outputs
+	twist.linear.x = msg.axes[1]
+	twist.angular.z = msg.axes[0]
+	
+	#We arbitrarily scale the twist components to speed up the robot
+	A = 1 #Scale for rotation
+	B = 0.2 #Scale for velocity
+	twist.angular.z = A*twist.angular.z
+	twist.linear.x = B*twist.linear.x
+	   
+#Subscriber for the vrep robot
+sub = rospy.Subscriber('joy', Joy, callback)
+
+#Loop
+while not rospy.is_shutdown():
+	
+	#Publish the new twist
+	pub.publish(twist)
+	
+	#Waiting to repeat the loop
+	rate.sleep()
