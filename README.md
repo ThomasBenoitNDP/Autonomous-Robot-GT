@@ -1,6 +1,6 @@
 # Autonomous-Robot-GT
 
-In a Georgiatech course (CS 7630 – Autonomous Robotics), a classmate and myself should program an autonomous robot to detect and map mines in any area. 
+In a Georgiatech course (CS 7630 – Autonomous Robotics, 2018), a classmate and myself should program an autonomous robot to detect and map mines in any area. 
 
 Moreover, the robot could avoid obstacles, detect human, simultaneously map a new environment and locate himself.
 
