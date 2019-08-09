@@ -6,7 +6,7 @@ Moreover, the robot could avoid obstacles, detect human, simultaneously map a ne
 
 We used the ROS (Robot Operating System) middelware, the TurtleBot 2 kit, Python and C++.
 
-
+(Note that: the main part of the project is loaced in the "catkin_ws_robot_final" zip file.)
 
 References: 
 
