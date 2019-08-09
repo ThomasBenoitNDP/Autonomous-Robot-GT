@@ -8,7 +8,6 @@ We used the ROS (Robot Operating System) middelware, the TurtleBot 2 kit, Python
 
 
 
-
 References: 
 
 Course's introduction: http://dream.georgiatech-metz.fr/sites/default/files/01-introduction.pdf
